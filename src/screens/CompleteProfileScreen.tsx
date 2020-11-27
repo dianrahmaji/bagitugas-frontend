@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   Avatar,
   Button,
   Container,
   CssBaseline,
-  FormControl,
   Grid,
-  InputLabel,
-  Link,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -38,27 +32,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
+const RegisterScreen: React.FC = () => {
   const classes = useStyles();
+
+  const { role } = useParams<{role: string}>();
 
   const [firstname, setFirstname] = useState<string>('');
   const [lastname, setLastname] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [role, setRole] = useState<string>('');
+  const [institution, setInstitution] = useState<string>('');
+  const [registrationNumber, setRegistrationNumber] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    history.push(`/register/${role}`)
-    console.table({
-      firstname,
-      lastname,
-      email,
-      password,
-      confirmPassword,
-      role,
-    });
   };
 
   return (
@@ -69,7 +57,7 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Register
+          Complete {role === 'student' ? 'Student' : 'Teacher'} Profile
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -105,12 +93,12 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="institution"
+                label="Institution"
+                name="institution"
+                autoComplete="institution"
+                value={institution}
+                onChange={(e) => setInstitution(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,12 +106,12 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
                 variant="outlined"
                 required
                 fullWidth
-                id="password"
-                label="Password"
-                type="password"
-                autoComplete="Current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                id="registrationNumber"
+                label={`${role === 'student' ? 'Student' : 'Teacher'} Number`}
+                type="registrationNumber"
+                autoComplete="registrationNumber"
+                value={registrationNumber}
+                onChange={(e) => setRegistrationNumber(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -131,39 +119,43 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
                 variant="outlined"
                 required
                 fullWidth
-                id="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                autoComplete="Current-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                id="phone"
+                label="Phone Number"
+                type="tel"
+                autoComplete="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12}>
-              <FormControl
+              <TextField
                 variant="outlined"
                 required
                 fullWidth
-                margin="normal"
-              >
-                <InputLabel id="role-select-label">Role</InputLabel>
-                <Select
-                  labelId="role-select-label"
-                  id="role-select"
-                  label="Role"
-                  value={role}
-                  onChange={(e: React.ChangeEvent<{ value: unknown }>) =>
-                    setRole(e.target.value as string)
-                  }
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={'student'}>Student</MenuItem>
-                  <MenuItem value={'teacher'}>Teacher</MenuItem>
-                  <MenuItem value={'admin'}>Admin</MenuItem>
-                </Select>
-              </FormControl>
+                multiline
+                rows={3}
+                id="address"
+                label="Address"
+                type="text"
+                autoComplete="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                multiline
+                rows={3}
+                id="description"
+                label="Self Description"
+                type="text"
+                autoComplete="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              ></TextField>
             </Grid>
           </Grid>
           <Button
@@ -176,13 +168,6 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
           >
             Register
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link component={RouterLink} to="/login" variant="body2">
-                Already have an account? Log in
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
     </Container>
