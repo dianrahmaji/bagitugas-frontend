@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const cards = [1, 2, 3, 4, 5];
+const cards = [1, 2, 3];
 
 const DashcboardScreen: React.FC = () => {
   const classes = useStyles();
