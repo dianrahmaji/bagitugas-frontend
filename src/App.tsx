@@ -1,16 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import CompleteProfileScreen from './screens/CompleteProfileScreen';
+import CompleteRegisterScreen from './screens/CompleteRegisterScreen';
+import CourseScreen from './screens/CourseScreen';
 
 const App: React.FC = () => {
   return (
     <Router>
+      <Route path="/" exact component={HomeScreen} />
       <Route path="/login" exact component={LoginScreen} />
       <Route path="/register" exact component={RegisterScreen} />
-      <Route path="/register/:role" exact component={CompleteProfileScreen} />
+      <Route path="/register/:role" exact component={CompleteRegisterScreen} />
+      <Route path="/course" exact component={CourseScreen} />
     </Router>
   );
 }
