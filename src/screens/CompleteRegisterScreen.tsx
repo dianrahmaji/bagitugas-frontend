@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Avatar,
@@ -11,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
+import { completeProfile } from '../actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterScreen: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const { role } = useParams<{role: string}>();
+  const { role } = useParams<{ role: string }>();
 
   const [firstname, setFirstname] = useState<string>('');
   const [lastname, setLastname] = useState<string>('');
@@ -47,6 +50,7 @@ const RegisterScreen: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(completeProfile());
   };
 
   return (

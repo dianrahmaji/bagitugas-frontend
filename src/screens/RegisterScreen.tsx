@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import {
@@ -17,6 +18,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
+import { register } from '../actions/userActions';
+import { RootState } from '../store';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,25 +43,22 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state: RootState) => state.userRegister);
 
-  const [firstname, setFirstname] = useState<string>('');
-  const [lastname, setLastname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [role, setRole] = useState<string>('');
 
+  useEffect(() => {
+    console.log(userRegister);
+  }, [userRegister]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    history.push(`/register/${role}`)
-    console.table({
-      firstname,
-      lastname,
-      email,
-      password,
-      confirmPassword,
-      role,
-    });
+    dispatch(register(email, password, confirmPassword));
+    history.push(`/register/${role}`);
   };
 
   return (
@@ -73,33 +73,6 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstname"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="lname"
-                name="lastname"
-                variant="outlined"
-                required
-                fullWidth
-                id="lastname"
-                label="Last Name"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -161,7 +134,6 @@ const RegisterScreen: React.FC<RouteComponentProps> = ({ history }) => {
                   </MenuItem>
                   <MenuItem value={'student'}>Student</MenuItem>
                   <MenuItem value={'teacher'}>Teacher</MenuItem>
-                  <MenuItem value={'admin'}>Admin</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
