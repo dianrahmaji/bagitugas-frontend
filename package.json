@@ -1,5 +1,5 @@
 {
-  "proxy": "https://95955950ba87.ngrok.io",
+  "proxy": "http://ec2-3-84-119-141.compute-1.amazonaws.com",
   "name": "bagitugas-frontend",
   "version": "0.1.0",
   "private": true,

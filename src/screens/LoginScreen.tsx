@@ -104,7 +104,6 @@ const RegsiterScreen: React.FC = () => {
               </MenuItem>
               <MenuItem value={'student'}>Student</MenuItem>
               <MenuItem value={'teacher'}>Teacher</MenuItem>
-              <MenuItem value={'admin'}>Admin</MenuItem>
             </Select>
           </FormControl>
           <FormControlLabel
