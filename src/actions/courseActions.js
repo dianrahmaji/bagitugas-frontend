@@ -27,7 +27,7 @@ export const getCourseList = () => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      'http://ec2-3-84-119-141.compute-1.amazonaws.com/api/course',
+      'https://ec2-3-84-119-141.compute-1.amazonaws.com/api/course',
       config
     );
     console.table(data);
@@ -60,7 +60,7 @@ export const getCourseDetails = (id) => async (dispatch) => {
     };
 
     const { data: details } = await axios.get(
-      `http://ec2-3-84-119-141.compute-1.amazonaws.com/api/course/${id}`,
+      `https://ec2-3-84-119-141.compute-1.amazonaws.com/api/course/${id}`,
       config
     );
     console.table(details);
@@ -75,7 +75,7 @@ export const getCourseDetails = (id) => async (dispatch) => {
     });
 
     const { data: materials } = await axios.get(
-      `http://ec2-3-84-119-141.compute-1.amazonaws.com/api/material?course=${details.id}`,
+      `https://ec2-3-84-119-141.compute-1.amazonaws.com/api/material?course=${details.id}`,
       config
     );
     console.table(materials);
@@ -125,7 +125,7 @@ export const createCourse = (judul, deskripsi, link, reward) => async (
     };
 
     const { data } = await axios.post(
-      'http://ec2-3-84-119-141.compute-1.amazonaws.com/api/course/',
+      'https://ec2-3-84-119-141.compute-1.amazonaws.com/api/course/',
       {
         judul,
         deskripsi,

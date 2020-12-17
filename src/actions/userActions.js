@@ -27,7 +27,7 @@ export const register = (email, password, confirmPassword) => async (
     };
 
     const data = await axios.post(
-      'http://ec2-3-84-119-141.compute-1.amazonaws.com/api/rest-auth/registration/',
+      'https://ec2-3-84-119-141.compute-1.amazonaws.com/api/rest-auth/registration/',
       {
         email,
         password1: password,
@@ -75,7 +75,7 @@ export const completeProfile = () => async (dispatch, getState) => {
       },
     };
 
-    const data = await axios.post('http://ec2-3-84-119-141.compute-1.amazonaws.com/api/rest-auth/', config);
+    const data = await axios.post('https://ec2-3-84-119-141.compute-1.amazonaws.com/api/rest-auth/', config);
 
     dispatch({
       type: USER_COMPLETE_PROFILE_SUCCESS,
@@ -105,7 +105,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const data = await axios.post(
-      'http://ec2-3-84-119-141.compute-1.amazonaws.com/api/rest-auth/login/',
+      'https://ec2-3-84-119-141.compute-1.amazonaws.com/api/rest-auth/login/',
       {
         email,
         password,
